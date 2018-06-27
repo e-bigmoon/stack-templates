@@ -16,3 +16,6 @@ ghc-options:
 - -Wtabs
 
 library: {}
+
+{-# START_FILE stack.yaml #-}
+lts-11.15
