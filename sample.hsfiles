@@ -1,2 +1,8 @@
 {-# START_FILE README.md #-}
 # {{name}}
+
+{-# START_FILE package.yaml #-}
+name: test-proj
+dependencies:
+  - base
+library: {}
