@@ -5,4 +5,14 @@
 name: {{name}}
 dependencies:
   - base
+  
+ghc-options:
+- -Wall
+- -Wcompat
+- -Wincomplete-uni-patterns
+- -Wincomplete-record-updates
+- -Wnoncanonical-monad-instances
+- -Wredundant-constraints
+- -Wtabs
+
 library: {}
