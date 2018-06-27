@@ -2,7 +2,7 @@
 # {{name}}
 
 {-# START_FILE package.yaml #-}
-name: test-proj
+name: {{name}}
 dependencies:
   - base
 library: {}
