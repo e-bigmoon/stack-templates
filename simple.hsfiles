@@ -19,6 +19,7 @@ library: {}
 
 {-# START_FILE stack.yaml #-}
 resolver: lts-12.2
+extra-deps: []
 
 {-# START_FILE ChangeLog.md #-}
 # Changelog for {{name}}
