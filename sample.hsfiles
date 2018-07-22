@@ -18,7 +18,7 @@ ghc-options:
 library: {}
 
 {-# START_FILE stack.yaml #-}
-resolver: lts-12.1
+resolver: lts-12.2
 
 {-# START_FILE README.md #-}
 # {{name}}
