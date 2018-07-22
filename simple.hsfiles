@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 {-# START_FILE .circleci/config.yml #-}
 version: 2
+
 aliases:
   - &default_env
     environment:
@@ -75,9 +76,9 @@ aliases:
   - &restore_build_results
     restore_cache:
       keys:
-        - stack-{{ checksum "cache_key" }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
-        - stack-{{ checksum "cache_key" }}-{{ checksum "stack.yaml" }}
-        - stack-{{ checksum "cache_key" }}
+        - stack-¥{{ checksum "cache_key" }}-¥{{ checksum "stack.yaml" }}-¥{{ checksum "package.yaml" }}
+        - stack-¥{{ checksum "cache_key" }}-¥{{ checksum "stack.yaml" }}
+        - stack-¥{{ checksum "cache_key" }}
   - &save_build_results
       save_cache:
         key: stack-{{ checksum "cache_key" }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
@@ -139,6 +140,7 @@ jobs:
             # TODO: https://github.com/jaspervdj/stylish-haskell/pull/218
             curl -sL https://raw.githubusercontent.com/waddlaw/stylish-haskell/master/scripts/latest.sh | sh -s -- -i $(find . -type f -name "*hs" -not -path '.git' -not -path '*.stack-work*')
             git --no-pager diff --exit-code
+
 workflows:
   version: 2
   test-check:
