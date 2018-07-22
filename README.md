@@ -6,3 +6,7 @@
 ```shell
 $ stack new test-proj e-bigmoon/simple
 ```
+
+## ref
+
+- [How does one use a literal {{ in a Mustache template?](https://stackoverflow.com/questions/11042926/how-does-one-use-a-literal-in-a-mustache-template)
