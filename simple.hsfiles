@@ -152,3 +152,11 @@ workflows:
             - build
       - check
 <%={{ }}=%>
+
+{-# START_FILE .restyled.yaml #-}
+enabled: true
+auto: true
+restylers:
+  - stylish-haskell:
+      include:
+        - "**/*.hs"
