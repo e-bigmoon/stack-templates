@@ -62,6 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {{name}}.cabal
 
 {-# START_FILE .circleci/config.yml #-}
+{{=<% %>=}}
 version: 2
 
 aliases:
@@ -76,9 +77,9 @@ aliases:
   - &restore_build_results
     restore_cache:
       keys:
-        - stack-&#123;&#123; checksum "cache_key" }}-&#123;&#123; checksum "stack.yaml" }}-&#123;&#123; checksum "package.yaml" }}
-        - stack-&#123;&#123; checksum "cache_key" }}-&#123;&#123; checksum "stack.yaml" }}
-        - stack-&#123;&#123; checksum "cache_key" }}
+        - stack-{{ checksum "cache_key" }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
+        - stack-{{ checksum "cache_key" }}-{{ checksum "stack.yaml" }}
+        - stack-{{ checksum "cache_key" }}
   - &save_build_results
       save_cache:
         key: stack-{{ checksum "cache_key" }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
@@ -150,4 +151,4 @@ workflows:
           requires:
             - build
       - check
-{-# START_FILE .circleci/config.yml #-}
+<%={{ }}=%>
