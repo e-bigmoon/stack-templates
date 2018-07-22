@@ -76,9 +76,9 @@ aliases:
   - &restore_build_results
     restore_cache:
       keys:
-        - stack-¥{{ checksum "cache_key" }}-¥{{ checksum "stack.yaml" }}-¥{{ checksum "package.yaml" }}
-        - stack-¥{{ checksum "cache_key" }}-¥{{ checksum "stack.yaml" }}
-        - stack-¥{{ checksum "cache_key" }}
+        - stack-&#123;&#123; checksum "cache_key" }}-&#123;&#123; checksum "stack.yaml" }}-&#123;&#123; checksum "package.yaml" }}
+        - stack-&#123;&#123; checksum "cache_key" }}-&#123;&#123; checksum "stack.yaml" }}
+        - stack-&#123;&#123; checksum "cache_key" }}
   - &save_build_results
       save_cache:
         key: stack-{{ checksum "cache_key" }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
