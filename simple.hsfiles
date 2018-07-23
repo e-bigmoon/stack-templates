@@ -5,6 +5,10 @@
 $ ghcid --command "stack ghci --ghci-options=-fno-code"
 ```
 
+```shell
+$ stack run {{name}}
+```
+
 ## ghcid
 
 - [ndmitchell/ghcid](https://github.com/ndmitchell/ghcid)
@@ -14,6 +18,21 @@ $ ghcid --command "stack ghci --ghci-options=-fno-code"
 :set -fwarn-unused-binds -fwarn-unused-imports
 :set -isrc
 :load Main
+
+{-# START_FILE app/Main.hs #-}
+module Main (main) where
+
+import qualified Configuration.Dotenv       as Dotenv
+import qualified Configuration.Dotenv.Types as Dotenv
+
+main :: IO ()
+main = do
+  _ <- Dotenv.loadFile Dotenv.defaultConfig
+  dummy <- liftIO $ fromMaybe (error "DUMMY_ENV is not setting")  <$> lookupEnv "DUMMY_ENV"
+  putStrLn dummy
+  
+{-# START_FILE .env #-}
+DUMMY_ENV=dummy
 
 {-# START_FILE package.yaml #-}
 name: {{name}}
@@ -29,7 +48,15 @@ ghc-options:
 - -Wredundant-constraints
 - -Wtabs
 
-library: {}
+library:
+  source-dirs: src
+
+executables:
+  {{name}}:
+    main: app/Main.hs
+    dependencies:
+    - {{name}}
+    - dotenv
 
 {-# START_FILE stack.yaml #-}
 resolver: lts-12.2
@@ -75,6 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {-# START_FILE .gitignore #-}
 .stack-work/
 {{name}}.cabal
+.env
 
 {-# START_FILE .circleci/config.yml #-}
 {{=<% %>=}}
