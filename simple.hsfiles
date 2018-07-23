@@ -15,6 +15,12 @@ Apply stylish-haskell to `*.hs` files.
 $ find . -type f -name "*hs" -not -path '.git' -not -path '*.stack-work*' -exec stylish-haskell -i {} \;
 ```
 
+Run lint.
+
+```shell
+$ hlint .
+```
+
 ## dependencies
 
 - [rio](https://www.stackage.org/package/rio)
@@ -44,15 +50,25 @@ import qualified Configuration.Dotenv.Types as Dotenv
 import           System.Environment
 
 main :: IO ()
-main = do
+main = runSimpleApp app
+  
+app :: RIO SimpleApp ()
+app = do
   _ <- Dotenv.loadFile Dotenv.defaultConfig
-  dummy <- fromMaybe (error "DUMMY_ENV is not setting") <$> lookupEnv "DUMMY_ENV"
-  putStrLn dummy
+  dummy <- liftIO $ fromMaybe (error "DUMMY_ENV is not setting") <$> lookupEnv "DUMMY_ENV"
+  logInfo $ displayShow dummy
 
 {-# START_FILE src/Prelude.hs #-}
 module Prelude (module RIO) where
 
-import RIO
+import           RIO
+
+
+{-# SSTAR_FILE app/Prelude.hs #-}
+module Prelude (module RIO) where
+
+import           RIO
+
 
 {-# START_FILE package.yaml #-}
 name: {{name}}
@@ -76,10 +92,13 @@ library:
 
 executables:
   {{name}}:
-    main: app/Main.hs
+    source-dirs: app
+    main: Main.hs
     dependencies:
     - {{name}}
     - dotenv
+    other-modules:
+    - Prelude
 
 {-# START_FILE stack.yaml #-}
 resolver: lts-12.2
