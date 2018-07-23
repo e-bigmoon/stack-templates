@@ -23,6 +23,7 @@ $ hlint .
 
 ## dependencies
 
+- [base-noprelude](https://www.stackage.org/package/base-noprelude)
 - [rio](https://www.stackage.org/package/rio)
 
 ## ghcid
