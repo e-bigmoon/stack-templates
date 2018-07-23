@@ -9,6 +9,12 @@ $ ghcid --command "stack ghci --ghci-options=-fno-code"
 $ stack run
 ```
 
+Apply stylish-haskell to `*.hs` files.
+
+```shell
+$ find . -type f -name "*hs" -not -path '.git' -not -path '*.stack-work*' -exec stylish-haskell -i {} \;
+```
+
 ## dependencies
 
 - [rio](https://www.stackage.org/package/rio)
@@ -22,6 +28,10 @@ $ stack run
 :set -fwarn-unused-binds -fwarn-unused-imports
 :set -isrc
 :load Main
+
+## CI
+
+- [circle ci 2.0](https://circleci.com/docs/2.0/)
 
 {-# START_FILE .env #-}
 DUMMY_ENV=dummy
