@@ -63,12 +63,10 @@ module Prelude (module RIO) where
 
 import           RIO
 
-
 {-# START_FILE app/Prelude.hs #-}
 module Prelude (module RIO) where
 
 import           RIO
-
 
 {-# START_FILE package.yaml #-}
 name: {{name}}
