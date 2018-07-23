@@ -64,7 +64,7 @@ module Prelude (module RIO) where
 import           RIO
 
 
-{-# SSTAR_FILE app/Prelude.hs #-}
+{-# START_FILE app/Prelude.hs #-}
 module Prelude (module RIO) where
 
 import           RIO
