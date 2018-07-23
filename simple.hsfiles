@@ -22,13 +22,16 @@ $ stack run {{name}}
 {-# START_FILE app/Main.hs #-}
 module Main (main) where
 
+import           RIO
+
 import qualified Configuration.Dotenv       as Dotenv
 import qualified Configuration.Dotenv.Types as Dotenv
+import           System.Environment
 
 main :: IO ()
 main = do
   _ <- Dotenv.loadFile Dotenv.defaultConfig
-  dummy <- liftIO $ fromMaybe (error "DUMMY_ENV is not setting")  <$> lookupEnv "DUMMY_ENV"
+  dummy <- fromMaybe (error "DUMMY_ENV is not setting")  <$> lookupEnv "DUMMY_ENV"
   putStrLn dummy
   
 {-# START_FILE .env #-}
@@ -37,7 +40,8 @@ DUMMY_ENV=dummy
 {-# START_FILE package.yaml #-}
 name: {{name}}
 dependencies:
-  - base
+- base
+- rio
   
 ghc-options:
 - -Wall
