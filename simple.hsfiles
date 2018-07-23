@@ -6,8 +6,12 @@ $ ghcid --command "stack ghci --ghci-options=-fno-code"
 ```
 
 ```shell
-$ stack run {{name}}
+$ stack run
 ```
+
+## dependencies
+
+- [rio](https://www.stackage.org/package/rio)
 
 ## ghcid
 
@@ -19,10 +23,11 @@ $ stack run {{name}}
 :set -isrc
 :load Main
 
+{-# START_FILE .env #-}
+DUMMY_ENV=dummy
+
 {-# START_FILE app/Main.hs #-}
 module Main (main) where
-
-import           RIO
 
 import qualified Configuration.Dotenv       as Dotenv
 import qualified Configuration.Dotenv.Types as Dotenv
@@ -31,16 +36,18 @@ import           System.Environment
 main :: IO ()
 main = do
   _ <- Dotenv.loadFile Dotenv.defaultConfig
-  dummy <- fromMaybe (error "DUMMY_ENV is not setting")  <$> lookupEnv "DUMMY_ENV"
+  dummy <- fromMaybe (error "DUMMY_ENV is not setting") <$> lookupEnv "DUMMY_ENV"
   putStrLn dummy
-  
-{-# START_FILE .env #-}
-DUMMY_ENV=dummy
+
+{-# START_FILE src/Prelude.hs #-}
+module Prelude (module RIO) where
+
+import RIO
 
 {-# START_FILE package.yaml #-}
 name: {{name}}
 dependencies:
-- base
+- base-noprelude
 - rio
   
 ghc-options:
@@ -54,6 +61,8 @@ ghc-options:
 
 library:
   source-dirs: src
+  other-modules:
+  - Prelude
 
 executables:
   {{name}}:
@@ -64,7 +73,8 @@ executables:
 
 {-# START_FILE stack.yaml #-}
 resolver: lts-12.2
-extra-deps: []
+extra-deps:
+- base-noprelude-4.11.1.0
 
 {-# START_FILE ChangeLog.md #-}
 # Changelog for {{name}}
